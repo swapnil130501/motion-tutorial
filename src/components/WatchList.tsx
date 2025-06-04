@@ -14,6 +14,20 @@ export default function WatchList() {
     }
 
     const [currentCard, setCurrentCard] = useState<Watch | null>(null);
+    const ref = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (e) => {
+        if(currentCard && ref.current && !ref.current.contains(e.target as Node)) {
+            setCurrentCard(null);
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [currentCard])
 
     const watchData: Watch[] = [
         {
@@ -99,7 +113,7 @@ export default function WatchList() {
     ];
 
     return (
-        <div 
+        <div
         className="p-4 bg-neutral-100 min-h-screen relative">
             {currentCard && <motion.div initial={{
                         opacity: 0
@@ -108,7 +122,7 @@ export default function WatchList() {
                         opacity: 1
                     }}
                     className="fixed inset-0 z-10 h-full w-full bg-black/50 backdrop-blur-sm"></motion.div>}
-            {currentCard && <motion.div 
+            {currentCard && <motion.div ref={ref}
                 layoutId={`card-${currentCard.referenceNumber}`}
                 className="fixed inset-0 z-20 bg-white h-[650px] w-96 rounded-2xl border border-neutral-200 p-4 m-auto">
                 <div className="rounded-xl bg-gray-100 mb-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]">
