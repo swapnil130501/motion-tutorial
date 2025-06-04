@@ -104,23 +104,22 @@ export default function WatchList() {
         
         className="p-4 bg-neutral-100 min-h-screen relative">
             {currentCard && <div className="fixed inset-0 z-10 h-full w-full bg-black/50 backdrop-blur-sm"></div>}
-            {currentCard && <div className="h-[500px] fixed inset-0 z-20 bg-white w-72 rounded-2xl border border-neutral-200 p-4 m-auto">
+            {currentCard && <div className="fixed inset-0 z-20 bg-white h-[600px] w-72 rounded-2xl border border-neutral-200 p-4 m-auto">
                 <div className="rounded-xl bg-gray-100 mb-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]">
                     <img
-                        className="h-60 w-72 object-cover aspect-square rounded-2xl"
+                        className="h-64 w-64 object-cover rounded-2xl"
                         src={currentCard.img}
                         alt={currentCard.name}
                     />
                 </div>
-                <div className="flex flex-col items-center justify-center gap-2 ">
+                <div className="flex flex-col items-center justify-center gap-2 mb-4">
                     <h2 className="text-2xl font-bold text-neutral-800 text-center gap-2">
                         {currentCard.name}
                     </h2>
 
                     <h2 className="text-lg font-bold text-md">{currentCard.brand}</h2>
                 </div>
-                <div className="h-24 overflow-auto py-4">
-
+                <div className="overflow-y-auto h-40">
                     <p className="text-sm text-neutral-500">
                         {currentCard.description}
                     </p>
