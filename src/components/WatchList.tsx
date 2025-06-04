@@ -1,25 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import WatchCard from "./WatchCard";
-
-const useOutsideClick = (callback: () => void) => {
-    const ref = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handleClick = (event: MouseEvent) => {
-            if (ref.current && !ref.current.contains(event.target as Node)) {
-                callback();
-            }
-        }
-
-        document.addEventListener("click", handleClick);
-
-        return () => {
-            document.removeEventListener("click", handleClick);
-        }
-    }, [callback])
-
-    return ref;
-}
+import {motion} from 'motion/react';
 
 export default function WatchList() {
 
@@ -34,56 +15,96 @@ export default function WatchList() {
 
     const [currentCard, setCurrentCard] = useState<Watch | null>(null);
 
-    
-
     const watchData: Watch[] = [
         {
-            name: "Submariner Date",
-            brand: "Rolex",
-            price: "$10,250",
-            img: "src/assets/rolex.jpg",
-            referenceNumber: "126610LN",
-            description: "The Rolex Submariner Date is a legendary diver’s watch known for its robustness, rotating bezel, and timeless design. A symbol of underwater exploration and adventure."
+            name: "Bambino",
+            brand: "Orient",
+            price: "$280",
+            img: "src/assets/orient-bambino.webp",
+            referenceNumber: "RA-AP0105Y30B",
+            description: "With roots back to 1950, Orient has become one of the best value for money watchmakers in the world of mechanical timekeeping. This Japanese brand has served as a gateway into the hobby for millions of enthusiasts by offering exceptional products spanning a variety of styles and even creating their own in-house calibers."
         },
         {
-            name: "Royal Oak Selfwinding",
-            brand: "Audemars Piguet",
-            price: "$33,800",
-            img: "src/assets/ap.jpg",
-            referenceNumber: "15500ST.OO.1220ST.04",
-            description: "Audemars Piguet’s Royal Oak blends sport and luxury with its signature octagonal bezel and integrated bracelet. A modern icon of haute horlogerie."
+            name: "Khaki Field Murph",
+            brand: "Hamilton",
+            price: "$945",
+            img: "src/assets/hamilton-murph.webp",
+            referenceNumber: "H70405730",
+            description: "With roots back to 1892, Hamilton Watch Company is a brand with a rich history in its production of military-style watches for the United States army during WWI and WWII. With the brand’s Pulsar and Ventura, it is evident that Hamilton never shied away from pushing the creative limits of watchmaking. Hamilton is also known for its close association with the world of movies, with over 500 major movie appearances and a stunning catalogue of milestone moments on the silver screen. In 1972, the company was purchased by Swatch Group and in 2003 Hamilton moved its headquarters and production facilities to the heart of watchmaking in Biel, Switzerland."
         },
         {
-            name: "Speedmaster Moonwatch",
+            name: "Tsuyosa",
+            brand: "Citizen",
+            price: "$337.50",
+            img: "src/assets/citizen-tsuyosa.webp",
+            referenceNumber: "NJ0200-50L",
+            description: "Founded in 1918, Citizen is one of the largest manufacturers of watches in the world and also one of few brands with a vertically-integrated production model, designing and manufacturing every component of all of the watches in Citizen’s vast offering. While perhaps best known for inexpensive, solar-powered watches from the Eco-Drive collection, Citizen also has a powerful enthusiast following largely associated with the Promaster collection of divers and tool watches best exemplified by the Aqualand diver’s watch."
+        },
+        {
+            name: "Alpanist",
+            brand: "Seiko",
+            price: "$675",
+            img: "src/assets/seiko-alpanist.webp",
+            referenceNumber: "SPB121",
+            description: "Seiko was founded in 1881 in Tokyo, Japan and has grown to become one of the largest watch companies in the world. Today, Seiko’s diverse collection presents impressive value backed by some of the most iconic designs in watch history. Perhaps best known for its sporty Prospex collection, Seiko’s legend also stems from the attainable Seiko 5 Sports collection as well as the refined Presage range of well-finished dress watches."
+        },
+        {
+            name: "PRX Powermatic 80",
+            brand: "Tissot",
+            price: "$775",
+            img: "src/assets/tissot-prx80.webp",
+            referenceNumber: "T1374071135100",
+            description: "Founded in 1853, Tissot is a Swiss manufacturer based in Le Locle and are known for their well-built timepieces that span a variety of styles. With the help of models such as the Le Locle, Gentleman, Seastar, T-Touch, and their many heritage pieces, they are one of the largest producers of Swiss-Made timepieces in the world."
+        },
+        {
+            name: "Speedmaster",
             brand: "Omega",
-            price: "$6,600",
-            img: "src/assets/omega.jpg",
-            referenceNumber: "310.30.42.50.01.001",
-            description: "The Omega Speedmaster Moonwatch is famed for being the first watch worn on the moon. A chronograph with deep space heritage and precision engineering."
+            price: "$775",
+            img: "src/assets/omega-speedmaster.webp",
+            referenceNumber: "T1374071135100",
+            description: "Founded in 1853, Tissot is a Swiss manufacturer based in Le Locle and are known for their well-built timepieces that span a variety of styles. With the help of models such as the Le Locle, Gentleman, Seastar, T-Touch, and their many heritage pieces, they are one of the largest producers of Swiss-Made timepieces in the world."
         },
         {
-            name: "Nautilus 5711",
-            brand: "Patek Philippe",
-            price: "$35,000",
-            img: "src/assets/nautilus.jpg",
-            referenceNumber: "5711/1A-010",
-            description: "The Patek Philippe Nautilus 5711 is one of the most sought-after watches in the world. Designed by Gérald Genta, it’s known for its porthole-style case and horizontal embossed dial."
+            name: "Khaki Field Mechanical",
+            brand: "Hamilton",
+            price: "$775",
+            img: "src/assets/hamilton-field.webp",
+            referenceNumber: "T1374071135100",
+            description: "Founded in 1853, Tissot is a Swiss manufacturer based in Le Locle and are known for their well-built timepieces that span a variety of styles. With the help of models such as the Le Locle, Gentleman, Seastar, T-Touch, and their many heritage pieces, they are one of the largest producers of Swiss-Made timepieces in the world."
         },
         {
-            name: "Big Bang Unico",
-            brand: "Hublot",
-            price: "$21,000",
-            img: "src/assets/big-bang-unico.png",
-            referenceNumber: "441.OM.1180.RX",
-            description: "The Hublot Big Bang Unico combines bold design with innovative materials. Known for its skeleton dial and industrial aesthetic, it embodies modern watchmaking."
+            name: "Presage Cocktail Time",
+            brand: "Seiko",
+            price: "$775",
+            img: "src/assets/seiko-persage.webp",
+            referenceNumber: "T1374071135100",
+            description: "Founded in 1853, Tissot is a Swiss manufacturer based in Le Locle and are known for their well-built timepieces that span a variety of styles. With the help of models such as the Le Locle, Gentleman, Seastar, T-Touch, and their many heritage pieces, they are one of the largest producers of Swiss-Made timepieces in the world."
+        },
+        {
+            name: "Seamaster Aqua Terra",
+            brand: "Omega",
+            price: "$775",
+            img: "src/assets/omega-seamaster.webp",
+            referenceNumber: "T1374071135100",
+            description: "Founded in 1853, Tissot is a Swiss manufacturer based in Le Locle and are known for their well-built timepieces that span a variety of styles. With the help of models such as the Le Locle, Gentleman, Seastar, T-Touch, and their many heritage pieces, they are one of the largest producers of Swiss-Made timepieces in the world."
+        },
+        {
+            name: "SBGA211 Snowflake",
+            brand: "Grand Seiko",
+            price: "$6600",
+            img: "src/assets/seiko-SBGA211.webp",
+            referenceNumber: "T1374071135100",
+            description: "Founded in 1853, Tissot is a Swiss manufacturer based in Le Locle and are known for their well-built timepieces that span a variety of styles. With the help of models such as the Le Locle, Gentleman, Seastar, T-Touch, and their many heritage pieces, they are one of the largest producers of Swiss-Made timepieces in the world."
         }
     ];
 
-    const ref = useOutsideClick(() => setCurrentCard(null));
     return (
-        <div className="p-4 bg-neutral-100 min-h-screen relative">
+        <div 
+       
+        
+        className="p-4 bg-neutral-100 min-h-screen relative">
             {currentCard && <div className="fixed inset-0 z-10 h-full w-full bg-black/50 backdrop-blur-sm"></div>}
-            {currentCard && <div ref={ref}  className="h-[500px] fixed inset-0 z-20 bg-white w-72 rounded-2xl border border-neutral-200 p-4 m-auto">
+            {currentCard && <div className="h-[500px] fixed inset-0 z-20 bg-white w-72 rounded-2xl border border-neutral-200 p-4 m-auto">
                 <div className="rounded-xl bg-gray-100 mb-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]">
                     <img
                         className="h-60 w-72 object-cover aspect-square rounded-2xl"
@@ -98,7 +119,7 @@ export default function WatchList() {
 
                     <h2 className="text-lg font-bold text-md">{currentCard.brand}</h2>
                 </div>
-                <div className=" h-20 overflow-auto py-4">
+                <div className="h-24 overflow-auto py-4">
 
                     <p className="text-sm text-neutral-500">
                         {currentCard.description}
