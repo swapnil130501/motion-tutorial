@@ -101,29 +101,53 @@ export default function WatchList() {
     return (
         <div 
         className="p-4 bg-neutral-100 min-h-screen relative">
-            {currentCard && <div className="fixed inset-0 z-10 h-full w-full bg-black/50 backdrop-blur-sm"></div>}
+            {currentCard && <motion.div initial={{
+                        opacity: 0
+                    }}
+                    animate={{
+                        opacity: 1
+                    }}
+                    className="fixed inset-0 z-10 h-full w-full bg-black/50 backdrop-blur-sm"></motion.div>}
             {currentCard && <motion.div 
                 layoutId={`card-${currentCard.referenceNumber}`}
                 className="fixed inset-0 z-20 bg-white h-[650px] w-96 rounded-2xl border border-neutral-200 p-4 m-auto">
                 <div className="rounded-xl bg-gray-100 mb-4 shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px]">
-                    <img
+                    <motion.img
+                        layoutId={`card-image-${currentCard.referenceNumber}`}
                         className="object-cover rounded-2xl"
                         src={currentCard.img}
                         alt={currentCard.name}
                     />
                 </div>
                 <div className="flex flex-col items-center justify-center gap-2 mb-4">
-                    <h2 className="text-2xl font-bold text-neutral-800 text-center gap-2">
+                    <motion.h2 
+                        layoutId={`card-title-${currentCard.referenceNumber}`}
+                        className="text-2xl font-bold text-neutral-800 text-center gap-2">
                         {currentCard.name}
-                    </h2>
+                    </motion.h2>
 
-                    <h2 className="text-lg font-bold text-md">{currentCard.brand}</h2>
+                    <motion.h2 
+                        layoutId={`card-brand-${currentCard.referenceNumber}`}
+                        className="text-lg font-bold text-md">{currentCard.brand}
+                    </motion.h2>
                 </div>
-                <div className="overflow-y-auto h-40">
+                <motion.div 
+                    initial={{
+                        filter: "blur(10px)",
+                        opacity: 0
+                    }}
+                    animate={{
+                        filter: "blur(0px)",
+                        opacity: 1
+                    }}
+                    transition={{
+                        duration: 0.3,
+                    }}
+                    className="overflow-y-auto h-40 pb-36 [mask-image:linear-gradient(to_top,transparent_20%,black_80%)]">
                     <p className="text-sm text-neutral-500">
                         {currentCard.description}
                     </p>
-                </div>
+                </motion.div>
 
             </motion.div>}
             <div className="flex p-4 flex-wrap gap-4 justify-center items-center">
