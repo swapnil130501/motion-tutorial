@@ -13,6 +13,7 @@ interface Watch {
 export default function WatchCard({ data, onClickHandler }: { data: Watch; onClickHandler: () => void }) {
     return (
         <motion.div 
+            layoutId={`card-${data.referenceNumber}`}
             onClick={onClickHandler} 
             className="flex flex-col items-center bg-white rounded-2xl shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] p-4 w-auto h-auto cursor-pointer gap-2">
 
